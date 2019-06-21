@@ -10,6 +10,7 @@ target_sources(XUtils
 PRIVATE
     src/xutils/IOWrapper/rgbd_camera.cpp
     src/xutils/IOWrapper/tum_loader.cpp
+    src/xutils/DataStruct/stop_watch.cpp
 )
 
 target_include_directories(XUtils
@@ -44,7 +45,7 @@ install(TARGETS XUtils
 install(EXPORT XUtils-targets
         NAMESPACE XUtils::
         FILE XUtilsConfig.cmake
-        DESTINATION lib/cmake/XUtils)
+        DESTINATION lib/cmake/xutils)
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include
         DESTINATION ${CMAKE_INSTALL_PREFIX})

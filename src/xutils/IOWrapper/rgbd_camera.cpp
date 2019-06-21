@@ -1,6 +1,6 @@
 #include <xutils/IOWrapper/rgbd_camera.h>
 
-namespace fusion
+namespace xutils
 {
 
 RgbdCamera::RgbdCamera(int cols, int rows, int fps)
@@ -120,4 +120,4 @@ bool RgbdCamera::get_image()
     return true;
 }
 
-} // namespace fusion
+} // namespace xutils

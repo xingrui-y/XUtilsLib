@@ -4,7 +4,7 @@
 #include <openni2/OpenNI.h>
 #include <opencv2/opencv.hpp>
 
-namespace fusion
+namespace xutils
 {
 
 class RgbdCamera
@@ -30,6 +30,6 @@ private:
     openni::VideoFrameRef rgbFrame;
 };
 
-} // namespace fusion
+} // namespace xutils
 
 #endif
