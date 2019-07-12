@@ -11,49 +11,41 @@ template <class T>
 class SafeQueue
 {
 public:
-    void push(const T &val);
-    void push_safe(const T &val);
-    void pop_safe();
-    T front_safe();
-    size_t size_safe();
+    void push(const T &);
+    bool pop(T &val);
+    void clear();
 
 private:
-    std::mutex lock;
+    std::mutex resource;
     std::queue<T> queue;
 };
 
 template <class T>
 void SafeQueue<T>::push(const T &val)
 {
+    std::lock_guard<std::mutex> lock(resource);
     queue.push(val);
 }
 
 template <class T>
-void SafeQueue<T>::push_safe(const T &val)
+bool SafeQueue<T>::pop(T &val)
 {
-    std::unique_lock<std::mutex> ulock(lock);
-    queue.push(val);
-}
+    std::lock_guard<std::mutex> lock(resource);
 
-template <class T>
-void SafeQueue<T>::pop_safe()
-{
-    std::unique_lock<std::mutex> ulock(lock);
+    if (queue.size() == 0)
+        return false;
+
+    val = queue.front();
     queue.pop();
+    return true;
 }
 
 template <class T>
-T SafeQueue<T>::front_safe()
+void SafeQueue<T>::clear()
 {
-    std::unique_lock<std::mutex> ulock(lock);
-    queue.front();
-}
-
-template <class T>
-size_t SafeQueue<T>::size_safe()
-{
-    std::unique_lock<std::mutex> ulock(lock);
-    return queue.size();
+    std::lock_guard<std::mutex> lock(resource);
+    while (queue.size() != 0)
+        queue.pop();
 }
 
 } // namespace xutils
